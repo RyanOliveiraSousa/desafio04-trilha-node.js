@@ -1,0 +1,436 @@
+{
+    "openapi":"3.0.0",
+        "info":{
+            "title":"RentalX Documentation",
+            "description":"This is an API Rent",
+            "version":"1.0.0",
+            "contact":{
+                "email":"ryan.sousa9810@gmail.com"
+            }
+        },
+        "paths":{
+            "/users":{
+               
+                "post":{
+                    "summary":"Cria um novo usuario",
+                    "description":"Cria um novo usuario",
+                    "tags":["users"],
+                    
+                    "requestBody":{
+                        "required":"true",
+                        "content":{
+                           
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        }
+                                    },
+                                    "example":{
+                                        "name": "Ryan",
+                                        "email":"ryan.sousa9810@gmail.com"
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    },
+                    "responses":{
+                        "201":{
+                            "description":"Operacao Realizada com sucesso",
+                            
+                                "content":{
+                                      
+                                       "application/json":{
+                                           "schema":{
+                                               "type":"object",
+                                               "properties":{
+                                                   "admin":{
+                                                       "type":"boolean"
+                                                   },
+                                                   "id":{
+                                                       "type":"string"
+                                                      
+                                                   },
+                                                   "name":{
+                                                       "type":"string"
+                                                   },
+                                                   "email":{
+                                                       "type":"string"
+                                                   },
+                                                   "created_at":{
+                                                       "type":"string"
+                                                   },
+                                                   "updated_at":{
+                                                       "type":"string"
+                                                   }
+                                               },
+                                               "example":{
+                                                   "id":"95768532-96fd-4425-8f9e-940507fcb4ac",
+                                                   "admin": false,
+                                                   "name":"Ryan",
+                                                   "email":"ryan.sousa9810@gmail.com",
+                                                   "created_at":"2021-08-02T18:01:14.440Z",
+                                                   "updated_at":"2021-08-02T18:01:14.440Z"
+                                               }
+                                           }
+           
+                                       }
+           
+                                   
+                               }
+                            
+                        },"400":{
+                            "description":"Email ja sendo utilizado",
+                            "content":{
+                                      
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            "error":{
+                                                "type":"string"
+                                          
+                                        }
+                                    },
+                                    "example":{
+                                        "error":"this email is already in use"
+                                       
+                                    }
+    
+                                }
+    
+                            
+                        }
+                    }
+                        
+                    
+                }
+
+                    } 
+
+                }
+            },
+            "/users ":{
+               
+                "get":{
+                    "summary":"Retorna todos os usuarios",
+                    "description":"Retorna todos os usuarios",
+                    "tags":["users"],
+                    "parameters": [
+                        {
+                          "name": "user_id",
+                          "in": "path",
+                          "description": "",
+                          "required": true,
+                          "schema": {
+                            "type": "string",
+                            "items": {
+                              "type": "uuid"
+                            }
+                          },
+                          "style": "simple"
+                        }
+                      ],
+                    
+                   
+                    "responses":{
+                        "201":{
+                            "description":"Operacao realizada com sucesso",
+                            
+                                "content":{
+                                      
+                                       "application/json":{
+                                           "schema":{
+                                               "type":"object",
+                                               "properties":{
+                                                   "admin":{
+                                                       "type":"boolean"
+                                                   },
+                                                   "id":{
+                                                       "type":"string"
+                                                      
+                                                   },
+                                                   "name":{
+                                                       "type":"string"
+                                                   },
+                                                   "email":{
+                                                       "type":"string"
+                                                   },
+                                                   "created_at":{
+                                                       "type":"string"
+                                                   },
+                                                   "updated_at":{
+                                                       "type":"string"
+                                                   }
+                                               },
+                                               "example":[{
+                                                "admin": true,
+                                                "id":"95768532-96fd-4425-8f9e-940507fcb4ac",
+                                                "name":"Ryan",
+                                                "email":"ryan.sousa9810@gmail.com",
+                                                "created_at":"2021-08-02T18:01:14.440Z",
+                                                "updated_at":"2021-08-02T18:01:14.440Z"
+                                            },
+                                            {
+                                                "admin": false,
+                                                "id":"95768532-96fd-4425-8f9e-940507fcb4ac",
+                                                "name":"Ryan",
+                                                "email":"ryan.sousa9810@gmail.com",
+                                                "created_at":"2021-08-02T18:01:14.440Z",
+                                                "updated_at":"2021-08-02T18:01:14.440Z"
+                                            }]
+                                               
+                                           }
+           
+                                       }
+           
+                                   
+                               }
+                            
+                        },"400":{
+                            "description":"Usuario sem permissao ou usuario nao encontrado",
+                            "content":{
+                                      
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            "error":{
+                                                "type":"string"
+                                          
+                                            }
+                                    },
+                                    "example":{
+                                        "error":"you need to be a adminstrator to list all users"
+                                       
+                                    }
+    
+                                }
+    
+                            
+                        }
+                    }
+                        
+                    
+                }
+
+                    } 
+
+                }
+            },
+            "/users/{users_id}":{
+             
+                "get":{
+                    "summary":"Retorna um usuario especifico",
+                    "description":"Retorna um usuario especifico",
+                    "tags":["users"],
+                    "parameters": [
+                        {
+                          "name": "user_id - Id do usuario",
+                          "in": "path",
+                          "description": "ID do Usuario",
+                          "required": true,
+                          "schema": {
+                            "type": "string",
+                            "items": {
+                              "type": "uuid"
+                            }
+                          },
+                          "style": "simple"
+                        }
+                      ],
+                    
+                   
+                    "responses":{
+                        "201":{
+                            "description":"Operacao realizada com sucesso",
+                            
+                                "content":{
+                                      
+                                       "application/json":{
+                                           "schema":{
+                                               "type":"object",
+                                               "properties":{
+                                                   "admin":{
+                                                       "type":"boolean"
+                                                   },
+                                                   "id":{
+                                                       "type":"string"
+                                                      
+                                                   },
+                                                   "name":{
+                                                       "type":"string"
+                                                   },
+                                                   "email":{
+                                                       "type":"string"
+                                                   },
+                                                   "created_at":{
+                                                       "type":"string"
+                                                   },
+                                                   "updated_at":{
+                                                       "type":"string"
+                                                   }
+                                               },
+                                               "example":[
+                                            {
+                                                "admin": false,
+                                                "id":"95768532-96fd-4425-8f9e-940507fcb4ac",
+                                                "name":"Ryan",
+                                                "email":"ryan.sousa9810@gmail.com",
+                                                "created_at":"2021-08-02T18:01:14.440Z",
+                                                "updated_at":"2021-08-02T18:01:14.440Z"
+                                            }]
+                                               
+                                           }
+           
+                                       }
+           
+                                   
+                               }
+                            
+                        },"404":{
+                            "description":"Usuario nao encontrado",
+                            "content":{
+                                      
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            "error":{
+                                                "type":"string"
+                                          
+                                            }
+                                    },
+                                    "example":{
+                                        "error":"User not found"
+                                       
+                                    }
+    
+                                }
+    
+                            
+                        }
+                    }
+                        
+                    
+                }
+
+                    } 
+
+                }
+            },
+            "/users/{users_id}/admin":{
+                "description":"Cria novos usuarios",
+                "patch":{
+                    "summary":"Torna adm um usuario",
+                    "description":"Torna adm um usuario",
+                    "tags":["users"],
+                    "parameters": [
+                        {
+                          "name": "user_id ",
+                          "in": "path",
+                          "description": "",
+                          "required": true,
+                          "schema": {
+                            "type": "string",
+                            "items": {
+                              "type": "uuid"
+                            }
+                          },
+                          "style": "simple"
+                        }
+                      ],
+                    
+                   
+                    "responses":{
+                        "201":{
+                            "description":"Operacao realizada com sucesso",
+                            
+                                "content":{
+                                      
+                                       "application/json":{
+                                           "schema":{
+                                               "type":"object",
+                                               "properties":{
+                                                   "admin":{
+                                                       "type":"boolean"
+                                                   },
+                                                   "id":{
+                                                       "type":"string"
+                                                      
+                                                   },
+                                                   "name":{
+                                                       "type":"string"
+                                                   },
+                                                   "email":{
+                                                       "type":"string"
+                                                   },
+                                                   "created_at":{
+                                                       "type":"string"
+                                                   },
+                                                   "updated_at":{
+                                                       "type":"string"
+                                                   }
+                                               },
+                                               "example":[
+                                            {
+                                                "admin": true,
+                                                "id":"95768532-96fd-4425-8f9e-940507fcb4ac",
+                                                "name":"Ryan",
+                                                "email":"ryan.sousa9810@gmail.com",
+                                                "created_at":"2021-08-02T18:01:14.440Z",
+                                                "updated_at":"2021-08-02T18:01:14.440Z"
+                                            }]
+                                               
+                                           }
+           
+                                       }
+           
+                                   
+                               }
+                            
+                        },"404":{
+                            "description":"Usuario nao encontrado",
+                            "content":{
+                                      
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            "error":{
+                                                "type":"string"
+                                          
+                                            }
+                                    },
+                                    "example":{
+                                        "error":"User not found"
+                                       
+                                    }
+    
+                                }
+    
+                            
+                        }
+                    }
+                        
+                    
+                }
+
+                    } 
+
+                }
+            }
+            
+        
+
+        }
+        
+}    
